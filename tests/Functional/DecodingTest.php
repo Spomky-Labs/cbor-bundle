@@ -25,7 +25,7 @@ final class DecodingTest extends KernelTestCase
     public function theDecoderServiceIsAvailable(): void
     {
         static::bootKernel();
-        static::assertTrue(static::$container->has(Decoder::class));
+        static::assertTrue(static::$kernel->getContainer()->has(Decoder::class));
     }
 
     /**
@@ -38,7 +38,7 @@ final class DecodingTest extends KernelTestCase
         static::bootKernel();
 
         /** @var Decoder $decoder */
-        $decoder = static::$container->get(Decoder::class);
+        $decoder = static::$kernel->getContainer()->get(Decoder::class);
         $stream = new StringStream(hex2bin($data));
 
         $result = $decoder->decode($stream);
