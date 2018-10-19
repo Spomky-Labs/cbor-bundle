@@ -9,7 +9,7 @@ CBOR Encder/Decoder for Symfony
 [![Latest Stable Version](https://poser.pugx.org/spomky-labs/cbor-bundle/v/stable.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
 [![Total Downloads](https://poser.pugx.org/spomky-labs/cbor-bundle/downloads.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/spomky-labs/cbor-bundle/v/unstable.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
-[![License](https://poser.pugx.org/spomky-labs/cbor-bundle/license.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
+[![License](https://poser.pugx.org/spomky-labs/cbor-bundle/license.png)](https://packagist.org/packages/spomky-labs/cbor-bundle) [![GuardRails badge](https://badges.production.guardrails.io/Spomky-Labs/cbor-bundle.svg)](https://www.guardrails.io)
 
 # Scope
 
