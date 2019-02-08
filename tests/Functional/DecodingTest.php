@@ -11,11 +11,12 @@ declare(strict_types=1);
  * of the MIT license.  See the LICENSE file for details.
  */
 
-namespace SpomkyLabs\CborBundle\Tests;
+namespace SpomkyLabs\CborBundle\Tests\Functional;
 
 use CBOR\Decoder;
 use CBOR\StringStream;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class DecodingTest extends KernelTestCase
 {
@@ -25,21 +26,26 @@ final class DecodingTest extends KernelTestCase
     public function theDecoderServiceIsAvailable(): void
     {
         static::bootKernel();
-        static::assertTrue(static::$kernel->getContainer()->has(Decoder::class));
+        $container = static::$kernel->getContainer();
+        static::assertInstanceOf(ContainerInterface::class, $container);
+        static::assertTrue($container->has(Decoder::class));
     }
 
     /**
      * @test
      * @depends theDecoderServiceIsAvailable
      * @dataProvider getInputs
+     * @param mixed $expectedNormalizedValue
      */
     public function theDecoderCanDecodeInputs(string $data, $expectedNormalizedValue): void
     {
         static::bootKernel();
+        $container = static::$kernel->getContainer();
+        static::assertInstanceOf(ContainerInterface::class, $container);
 
         /** @var Decoder $decoder */
-        $decoder = static::$kernel->getContainer()->get(Decoder::class);
-        $stream = new StringStream(hex2bin($data));
+        $decoder = $container->get(Decoder::class);
+        $stream = new StringStream(\Safe\hex2bin($data));
 
         $result = $decoder->decode($stream);
         static::assertEquals($expectedNormalizedValue, $result->getNormalizedData());
