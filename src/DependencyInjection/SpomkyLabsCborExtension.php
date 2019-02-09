@@ -20,6 +20,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class SpomkyLabsCborExtension extends Extension
 {
+    /**
+     * @var string
+     */
     private $alias;
 
     public function __construct(string $alias)
@@ -32,10 +35,8 @@ class SpomkyLabsCborExtension extends Extension
         return $this->alias;
     }
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $container->registerForAutoconfiguration(JWKSetSourceInterface::class)->addTag('jose.jwkset_source');
-
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.php');
     }
