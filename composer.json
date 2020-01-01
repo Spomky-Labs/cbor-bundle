@@ -27,21 +27,21 @@
     "require": {
         "php": "^7.1|^8.0",
         "spomky-labs/cbor-php": "^1.0",
-        "symfony/config": "^3.4|^4.0",
-        "symfony/dependency-injection": "^3.4|^4.0",
-        "symfony/http-kernel": "^3.4|^4.0"
+        "symfony/config": "^5.0",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/http-kernel": "^5.0"
     },
     "require-dev": {
-        "symfony/framework-bundle": "^3.4|^4.0",
-        "phpunit/phpunit": "^7.0",
-        "symfony/phpunit-bridge": "^4.1",
+        "symfony/framework-bundle": "^5.0",
+        "phpunit/phpunit": "^8.0",
+        "symfony/phpunit-bridge": "^5.0",
         "php-coveralls/php-coveralls": "^2.0",
-        "phpstan/phpstan": "^0.11",
-        "phpstan/phpstan-beberlei-assert": "^0.11.0",
-        "phpstan/phpstan-deprecation-rules": "^0.11",
-        "phpstan/phpstan-phpunit": "^0.11",
-        "phpstan/phpstan-strict-rules": "^0.11",
-        "thecodingmachine/phpstan-safe-rule": "^0.1.2"
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-beberlei-assert": "^0.12",
+        "phpstan/phpstan-deprecation-rules": "^0.12",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "phpstan/phpstan-strict-rules": "^0.12",
+        "thecodingmachine/phpstan-safe-rule": "^1.0@beta"
     },
     "extra": {
         "branch-alias": {

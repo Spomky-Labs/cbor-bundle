@@ -3,6 +3,7 @@ parameters:
     paths:
         - src
         - tests
+    checkMissingIterableValueType: false
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon

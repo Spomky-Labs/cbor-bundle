@@ -16,7 +16,6 @@ namespace SpomkyLabs\CborBundle\Tests\Functional;
 use CBOR\Decoder;
 use CBOR\StringStream;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class DecodingTest extends KernelTestCase
 {
@@ -27,21 +26,20 @@ final class DecodingTest extends KernelTestCase
     {
         static::bootKernel();
         $container = static::$kernel->getContainer();
-        static::assertInstanceOf(ContainerInterface::class, $container);
         static::assertTrue($container->has(Decoder::class));
     }
 
     /**
      * @test
      * @depends theDecoderServiceIsAvailable
+     *
+     * @param string|float $expectedNormalizedValue
      * @dataProvider getInputs
-     * @param mixed $expectedNormalizedValue
      */
     public function theDecoderCanDecodeInputs(string $data, $expectedNormalizedValue): void
     {
         static::bootKernel();
         $container = static::$kernel->getContainer();
-        static::assertInstanceOf(ContainerInterface::class, $container);
 
         /** @var Decoder $decoder */
         $decoder = $container->get(Decoder::class);
