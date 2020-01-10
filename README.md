@@ -13,7 +13,7 @@ CBOR Encder/Decoder for Symfony
 
 # Scope
 
-This bundle wraps the [spomky-labs/cbor-php](https://github.com/spomky-labs/cbor-bundle) library and provides the decoder as a service
+This bundle wraps the [spomky-labs/cbor-php](https://github.com/Spomky-Labs/cbor-php) library and provides the decoder as a service
 This will help you to eausily decode CBOR streams (Concise Binary Object Representation from [RFC7049](https://tools.ietf.org/html/rfc7049)).
 
 # Installation
