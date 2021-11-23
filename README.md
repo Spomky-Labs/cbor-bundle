@@ -35,17 +35,13 @@ If you want to load a CBOR encoded data, you just have to use de decoder availab
 ```php
 <?php
 
-use CBOR\Decoder;
-use CBOR\StringStream;
+use SpomkyLabs\CborBundle\CBORDecoder;
 
 // CBOR object (in hex for the example)
 $data = hex2bin('fb3fd5555555555555');
 
-// String Stream
-$stream = new StringStream($data);
-
 // Load the data
-$object = $container->get(Decoder::class)->decode($stream); // Return a CBOR\OtherObject\DoublePrecisionFloatObject class with normalized value ~0.3333 (=1/3)
+$object = $container->get(CBORDecoder::class)->decode($data); // Return a CBOR\OtherObject\DoublePrecisionFloatObject class with normalized value ~0.3333 (=1/3)
 ```
 
 ## Custom Tags / Other Objects
@@ -57,6 +53,10 @@ $object = $container->get(Decoder::class)->decode($stream); // Return a CBOR\Oth
 I bring solutions to your problems and answer your questions.
 
 If you really love that project and the work I have done or if you want I prioritize your issues, then you can help me out for a couple of :beers: or more!
+
+[Become a sponsor](https://github.com/sponsors/Spomky)
+
+Or
 
 [![Become a Patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/FlorentMorselli)
 

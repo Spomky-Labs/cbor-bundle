@@ -29,6 +29,7 @@ use CBOR\Tag\TagManager;
 use CBOR\Tag\TimestampTag;
 use CBOR\Tag\UnsignedBigIntegerTag;
 use CBOR\Tag\UriTag;
+use SpomkyLabs\CborBundle\CBORDecoder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $container): void {
@@ -39,9 +40,8 @@ return static function (ContainerConfigurator $container): void {
         ->autowire()
     ;
 
-    $container->set(Decoder::class)
-        ->public()
-    ;
+    $container->set(Decoder::class)->public();
+    $container->set(CBORDecoder::class)->public();
 
     $container->set(OtherObjectManager::class)
         ->call('add', [BreakObject::class])

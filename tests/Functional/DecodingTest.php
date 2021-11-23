@@ -6,7 +6,7 @@ namespace SpomkyLabs\CborBundle\Tests\Functional;
 
 use CBOR\Decoder;
 use CBOR\Normalizable;
-use CBOR\StringStream;
+use SpomkyLabs\CborBundle\CBORDecoder;
 use function is_string;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -37,15 +37,14 @@ final class DecodingTest extends KernelTestCase
         static::bootKernel();
         $container = static::$kernel->getContainer();
 
-        /** @var Decoder $decoder */
-        $decoder = $container->get(Decoder::class);
+        /** @var CBORDecoder $decoder */
+        $decoder = $container->get(CBORDecoder::class);
         $binary = hex2bin($data);
         if (! is_string($binary)) {
             throw new RuntimeException('Invalid test case');
         }
-        $stream = new StringStream($binary);
 
-        $result = $decoder->decode($stream);
+        $result = $decoder->decode($binary);
         if ($result instanceof Normalizable) {
             static::assertSame($expectedNormalizedValue, $result->normalize());
         }
