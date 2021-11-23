@@ -12,8 +12,7 @@ class CBORDecoder
 {
     public function __construct(
         private Decoder $decoder
-    )
-    {
+    ) {
     }
 
     public function decode(string $data): CBORObject

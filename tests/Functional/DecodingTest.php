@@ -6,9 +6,9 @@ namespace SpomkyLabs\CborBundle\Tests\Functional;
 
 use CBOR\Decoder;
 use CBOR\Normalizable;
-use SpomkyLabs\CborBundle\CBORDecoder;
 use function is_string;
 use RuntimeException;
+use SpomkyLabs\CborBundle\CBORDecoder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**

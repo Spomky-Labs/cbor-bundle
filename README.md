@@ -1,10 +1,11 @@
 CBOR Encder/Decoder for Symfony
 ===============================
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spomky-labs/cbor-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spomky-labs/cbor-bundle/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/spomky-labs/cbor-bundle/badge.svg?branch=master)](https://coveralls.io/github/spomky-labs/cbor-bundle?branch=master)
+![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Coding%20Standards/badge.svg)
+![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Static%20Analyze/badge.svg)
 
-[![Build Status](https://travis-ci.org/spomky-labs/cbor-bundle.svg?branch=master)](https://travis-ci.org/spomky-labs/cbor-bundle)
+![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Unit%20and%20Functional%20Tests/badge.svg)
+![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Rector%20Checkstyle/badge.svg)
 
 [![Latest Stable Version](https://poser.pugx.org/spomky-labs/cbor-bundle/v/stable.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
 [![Total Downloads](https://poser.pugx.org/spomky-labs/cbor-bundle/downloads.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
@@ -37,7 +38,7 @@ If you want to load a CBOR encoded data, you just have to use de decoder availab
 
 use SpomkyLabs\CborBundle\CBORDecoder;
 
-// CBOR object (in hex for the example)
+// CBOR object (shall be a binary string; in hex for the example)
 $data = hex2bin('fb3fd5555555555555');
 
 // Load the data
