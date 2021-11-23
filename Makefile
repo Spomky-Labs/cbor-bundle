@@ -1,8 +1,3 @@
-.PHONY: mu
-mu: vendor ## Mutation tests
-	vendor/bin/infection -s --threads=$(nproc) --min-msi=30 --min-covered-msi=41
-	vendor/bin/phpunit --coverage-text
-
 .PHONY: tests
 tests: vendor ## Run all tests
 	vendor/bin/phpunit  --color
@@ -33,10 +28,6 @@ st: vendor ## Run static analyse
 
 
 ################################################
-
-.PHONY: ci-mu
-ci-mu: vendor ## Mutation tests (for Github only)
-	vendor/bin/infection --logger-github -s --threads=$(nproc) --min-msi=30 --min-covered-msi=50
 
 .PHONY: ci-cc
 ci-cc: vendor ## Show test coverage rates (console)
