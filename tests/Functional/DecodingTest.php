@@ -2,21 +2,15 @@
 
 declare(strict_types=1);
 
-/*
- * The MIT License (MIT)
- *
- * Copyright (c) 2014-2018 Spomky-Labs
- *
- * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
- */
-
 namespace SpomkyLabs\CborBundle\Tests\Functional;
 
 use CBOR\Decoder;
 use CBOR\StringStream;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * @internal
+ */
 final class DecodingTest extends KernelTestCase
 {
     /**
@@ -33,20 +27,19 @@ final class DecodingTest extends KernelTestCase
      * @test
      * @depends theDecoderServiceIsAvailable
      *
-     * @param string|float $expectedNormalizedValue
      * @dataProvider getInputs
      */
-    public function theDecoderCanDecodeInputs(string $data, $expectedNormalizedValue): void
+    public function theDecoderCanDecodeInputs(string $data, float|string $expectedNormalizedValue): void
     {
         static::bootKernel();
         $container = static::$kernel->getContainer();
 
         /** @var Decoder $decoder */
         $decoder = $container->get(Decoder::class);
-        $stream = new StringStream(\Safe\hex2bin($data));
+        $stream = new StringStream(hex2bin($data));
 
         $result = $decoder->decode($stream);
-        static::assertEquals($expectedNormalizedValue, $result->getNormalizedData());
+        static::assertSame($expectedNormalizedValue, $result->normalize());
     }
 
     public function getInputs(): array

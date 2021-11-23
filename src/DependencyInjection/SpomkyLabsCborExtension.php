@@ -2,15 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * The MIT License (MIT)
- *
- * Copyright (c) 2014-2018 Spomky-Labs
- *
- * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
- */
-
 namespace SpomkyLabs\CborBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
@@ -20,14 +11,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class SpomkyLabsCborExtension extends Extension
 {
-    /**
-     * @var string
-     */
-    private $alias;
-
-    public function __construct(string $alias)
-    {
-        $this->alias = $alias;
+    public function __construct(
+        private string $alias
+    ) {
     }
 
     public function getAlias(): string
@@ -37,11 +23,11 @@ class SpomkyLabsCborExtension extends Extension
 
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.php');
     }
 
-    public function getConfiguration(array $configs, ContainerBuilder $container): Configuration
+    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
         return new Configuration($this->getAlias());
     }
