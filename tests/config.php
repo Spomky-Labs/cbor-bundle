@@ -10,7 +10,7 @@ return static function (ContainerConfigurator $container) {
         'secret' => 'test',
         'http_method_override' => true,
         'session' => [
-            'storage_id' => 'session.storage.mock_file',
+            'storage_factory_id' => 'session.storage.factory.mock_file',
         ],
     ]);
 };

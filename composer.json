@@ -43,9 +43,13 @@
         "rector/rector": "^0.13.2",
         "symfony/framework-bundle": "^5.3|^6.0",
         "symfony/phpunit-bridge": "^5.3|^6.0",
-        "symplify/easy-coding-standard": "^10.0"
+        "symplify/easy-coding-standard": "^11.0"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "infection/extension-installer": true
+        }
     }
 }
