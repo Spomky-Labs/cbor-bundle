@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SpomkyLabs\CborBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
@@ -11,14 +12,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class SpomkyLabsCborExtension extends Extension
 {
-    public function __construct(
-        private string $alias
-    ) {
-    }
+    private const ALIAS = 'cbor';
 
     public function getAlias(): string
     {
-        return $this->alias;
+        return self::ALIAS;
     }
 
     public function load(array $configs, ContainerBuilder $container): void
@@ -27,8 +25,8 @@ class SpomkyLabsCborExtension extends Extension
         $loader->load('services.php');
     }
 
-    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
+    public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
     {
-        return new Configuration($this->getAlias());
+        return null;
     }
 }

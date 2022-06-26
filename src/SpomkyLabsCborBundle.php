@@ -11,6 +11,6 @@ class SpomkyLabsCborBundle extends Bundle
 {
     public function getContainerExtension(): SpomkyLabsCborExtension
     {
-        return new SpomkyLabsCborExtension('cbor');
+        return new SpomkyLabsCborExtension();
     }
 }
