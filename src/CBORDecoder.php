@@ -8,6 +8,9 @@ use CBOR\CBORObject;
 use CBOR\Decoder;
 use CBOR\StringStream;
 
+/**
+ * @final
+ */
 class CBORDecoder
 {
     public function __construct(

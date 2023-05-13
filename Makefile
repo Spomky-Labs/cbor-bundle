@@ -1,6 +1,6 @@
 .PHONY: tests
 tests: vendor ## Run all tests
-	vendor/bin/phpunit  --color
+	vendor/bin/phpunit --color
 
 .PHONY: code-coverage-html
 cc: vendor ## Show test coverage rates (HTML)
