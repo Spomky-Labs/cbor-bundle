@@ -96,6 +96,7 @@ return static function (ECSConfig $config) use ($header): void {
             __DIR__ . '/build',
             __DIR__ . '/vendor',
             __DIR__ . '/var',
+            __DIR__ . '/.castor.stub.php',
             PhpUnitTestClassRequiresCoversFixer::class,
         ]
     );
