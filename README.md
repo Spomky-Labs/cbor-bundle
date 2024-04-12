@@ -1,11 +1,8 @@
 CBOR Encder/Decoder for Symfony
 ===============================
 
-![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Coding%20Standards/badge.svg)
-![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Static%20Analyze/badge.svg)
-
-![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Unit%20and%20Functional%20Tests/badge.svg)
-![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Rector%20Checkstyle/badge.svg)
+![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Infection/badge.svg)
+![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/Integrate/badge.svg)
 
 [![Latest Stable Version](https://poser.pugx.org/spomky-labs/cbor-bundle/v/stable.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
 [![Total Downloads](https://poser.pugx.org/spomky-labs/cbor-bundle/downloads.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
