@@ -1,40 +1,38 @@
-.PHONY: tests
-tests: vendor ## Run all tests
-	vendor/bin/phpunit --color
+mu: vendor ## Mutation tests
+	vendor/bin/infection -s --threads=$$(nproc) --min-msi=0 --min-covered-msi=0
 
-.PHONY: code-coverage-html
+tests: vendor ## Run all tests
+	vendor/bin/phpunit  --color
+
 cc: vendor ## Show test coverage rates (HTML)
 	vendor/bin/phpunit --coverage-html ./build
 
-.PHONY: cs
 cs: vendor ## Fix all files using defined ECS rules
-	vendor/bin/ecs check --fix
+	XDEBUG_MODE=off vendor/bin/ecs check --fix
 
-.PHONY: tu
 tu: vendor ## Run only unit tests
 	vendor/bin/phpunit --color --group Unit
 
-.PHONY: ti
 ti: vendor ## Run only integration tests
 	vendor/bin/phpunit --color --group Integration
 
-.PHONY: tf
 tf: vendor ## Run only functional tests
 	vendor/bin/phpunit --color --group Functional
 
-.PHONY: st
 st: vendor ## Run static analyse
-	vendor/bin/phpstan analyse
+	XDEBUG_MODE=off vendor/bin/phpstan analyse
 
 
 ################################################
 
-.PHONY: ci-cc
-ci-cc: vendor ## Show test coverage rates (console)
+ci-mu: vendor ## Mutation tests (for GitHub only)
+	vendor/bin/infection --logger-github -s --threads=$$(nproc) --min-msi=0 --min-covered-msi=0
 
-.PHONY: ci-cs
+ci-cc: vendor ## Show test coverage rates (console)
+	vendor/bin/phpunit --coverage-text
+
 ci-cs: vendor ## Check all files using defined ECS rules
-	vendor/bin/ecs check
+	XDEBUG_MODE=off vendor/bin/ecs check
 
 ################################################
 
@@ -42,9 +40,9 @@ ci-cs: vendor ## Check all files using defined ECS rules
 vendor: composer.json composer.lock
 	composer validate
 	composer install
-.PHONY: rector
+
 rector: vendor ## Check all files using Rector
-	vendor/bin/rector process --ansi --dry-run --xdebug
+	XDEBUG_MODE=off vendor/bin/rector process --ansi --dry-run --xdebug
 
 .DEFAULT_GOAL := help
 help:
