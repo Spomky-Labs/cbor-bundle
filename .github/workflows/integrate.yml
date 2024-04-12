@@ -30,6 +30,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "8.3"
+          tools: castor
 
       - name: "Checkout code"
         uses: "actions/checkout@v4"
@@ -66,6 +67,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           extensions: "json, mbstring, openssl, sqlite3, curl, uuid"
           coverage: "xdebug"
+          tools: castor
 
       - name: "Checkout code"
         uses: "actions/checkout@v4"
@@ -77,7 +79,7 @@ jobs:
           composer-options: "--optimize-autoloader"
 
       - name: "Execute unit tests"
-        run: "make ci-cc"
+        run: "castor test --coverage-text"
 
   static_analysis:
     name: "3️⃣ Static Analysis"
@@ -91,6 +93,7 @@ jobs:
         with:
           php-version: "8.3"
           extensions: "json, mbstring, openssl, sqlite3, curl, uuid"
+          tools: castor
 
       - name: "Checkout code"
         uses: "actions/checkout@v4"
@@ -105,7 +108,7 @@ jobs:
           composer-options: "--optimize-autoloader"
 
       - name: "Execute static analysis"
-        run: "make st"
+        run: "castor stan"
 
   coding_standards:
     name: "4️⃣ Coding Standards"
@@ -119,6 +122,7 @@ jobs:
         with:
           php-version: "8.3"
           extensions: "json, mbstring, openssl, sqlite3, curl, uuid"
+          tools: castor
 
       - name: "Checkout code"
         uses: "actions/checkout@v4"
@@ -133,7 +137,7 @@ jobs:
           composer-options: "--optimize-autoloader"
 
       - name: "Check coding style"
-        run: "make ci-cs"
+        run: "castor cs"
 
   rector_checkstyle:
     name: "6️⃣ Rector Checkstyle"
@@ -147,6 +151,7 @@ jobs:
         with:
           php-version: "8.3"
           extensions: "json, mbstring, openssl, sqlite3, curl, uuid"
+          tools: castor
           coverage: "xdebug"
 
       - name: "Checkout code"
@@ -162,7 +167,7 @@ jobs:
           composer-options: "--optimize-autoloader"
 
       - name: "Execute Rector"
-        run: "make rector"
+        run: "castor rector"
 
   exported_files:
     name: "7️⃣ Exported files"
