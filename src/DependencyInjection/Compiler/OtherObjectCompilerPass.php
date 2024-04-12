@@ -13,9 +13,6 @@ final class OtherObjectCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'cbor.other_object';
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         if (! $container->hasDefinition(OtherObjectManagerInterface::class)) {

@@ -47,7 +47,6 @@ return static function (ECSConfig $config) use ($header): void {
     $config->import(SetList::NAMESPACES);
     $config->import(SetList::STRICT);
 
-    $services = $config->services();
     $config->rule(StrictParamFixer::class);
     $config->rule(StrictComparisonFixer::class);
     $config->rule(ArrayIndentationFixer::class);
@@ -89,9 +88,15 @@ return static function (ECSConfig $config) use ($header): void {
         'import_functions' => true,
     ]);
 
-    $config->services()
-        ->remove(PhpUnitTestClassRequiresCoversFixer::class);
     $config->parallel();
     $config->paths([__DIR__]);
-    $config->skip([__DIR__ . '/.github', __DIR__ . '/build', __DIR__ . '/vendor', __DIR__ . '/var']);
+    $config->skip(
+        [
+            __DIR__ . '/.github',
+            __DIR__ . '/build',
+            __DIR__ . '/vendor',
+            __DIR__ . '/var',
+            PhpUnitTestClassRequiresCoversFixer::class,
+        ]
+    );
 };

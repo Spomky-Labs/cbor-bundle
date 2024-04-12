@@ -13,9 +13,6 @@ final class TagCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'cbor.tag';
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         if (! $container->hasDefinition(TagManagerInterface::class)) {
