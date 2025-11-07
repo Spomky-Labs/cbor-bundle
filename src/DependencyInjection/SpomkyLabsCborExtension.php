@@ -6,6 +6,7 @@ namespace SpomkyLabs\CborBundle\DependencyInjection;
 
 use CBOR\OtherObject\OtherObjectInterface;
 use CBOR\Tag\TagInterface;
+use Override;
 use SpomkyLabs\CborBundle\DependencyInjection\Compiler\OtherObjectCompilerPass;
 use SpomkyLabs\CborBundle\DependencyInjection\Compiler\TagCompilerPass;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -16,8 +17,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 final class SpomkyLabsCborExtension extends Extension
 {
-    private const ALIAS = 'cbor';
+    private const string ALIAS = 'cbor';
 
+    #[Override]
     public function getAlias(): string
     {
         return self::ALIAS;
@@ -32,6 +34,7 @@ final class SpomkyLabsCborExtension extends Extension
         $loader->load('services.php');
     }
 
+    #[Override]
     public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
     {
         return null;

@@ -9,9 +9,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class OtherObjectCompilerPass implements CompilerPassInterface
+final readonly class OtherObjectCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'cbor.other_object';
+    public const string TAG = 'cbor.other_object';
 
     public function process(ContainerBuilder $container): void
     {

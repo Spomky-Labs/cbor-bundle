@@ -8,13 +8,10 @@ use CBOR\CBORObject;
 use CBOR\Decoder;
 use CBOR\StringStream;
 
-/**
- * @final
- */
-class CBORDecoder
+final readonly class CBORDecoder
 {
     public function __construct(
-        private readonly Decoder $decoder
+        private Decoder $decoder
     ) {
     }
 
