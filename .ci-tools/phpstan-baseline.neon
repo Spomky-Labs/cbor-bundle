@@ -1,0 +1,79 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: Class SpomkyLabs\CborBundle\CBORDecoder is neither abstract nor final.
+			identifier: ergebnis.final
+			count: 1
+			path: ../src/CBORDecoder.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\Compiler\OtherObjectCompilerPass::process() has a parameter $container with a type declaration of Symfony\Component\DependencyInjection\ContainerBuilder, but containers should not be injected.'
+			identifier: ergebnis.noParameterWithContainerTypeDeclaration
+			count: 1
+			path: ../src/DependencyInjection/Compiler/OtherObjectCompilerPass.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\Compiler\TagCompilerPass::process() has a parameter $container with a type declaration of Symfony\Component\DependencyInjection\ContainerBuilder, but containers should not be injected.'
+			identifier: ergebnis.noParameterWithContainerTypeDeclaration
+			count: 1
+			path: ../src/DependencyInjection/Compiler/TagCompilerPass.php
+
+		-
+			rawMessage: Class "SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension" is not allowed to extend "Symfony\Component\HttpKernel\DependencyInjection\Extension".
+			identifier: ergebnis.noExtends
+			count: 1
+			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
+
+		-
+			rawMessage: Class SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension extends internal class Symfony\Component\HttpKernel\DependencyInjection\Extension.
+			identifier: class.extendsInternalClass
+			count: 1
+			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension::getAlias() has Symfony\Component\DependencyInjection\Exception\BadMethodCallException in PHPDoc @throws tag but it''s not thrown.'
+			identifier: throws.unusedType
+			count: 1
+			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension::getConfiguration() has a nullable return type declaration.'
+			identifier: ergebnis.noNullableReturnTypeDeclaration
+			count: 1
+			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension::getConfiguration() has a parameter $container with a type declaration of Symfony\Component\DependencyInjection\ContainerBuilder, but containers should not be injected.'
+			identifier: ergebnis.noParameterWithContainerTypeDeclaration
+			count: 1
+			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension::getConfiguration() has parameter $config with no value type specified in iterable type array.'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension::load() has a parameter $container with a type declaration of Symfony\Component\DependencyInjection\ContainerBuilder, but containers should not be injected.'
+			identifier: ergebnis.noParameterWithContainerTypeDeclaration
+			count: 1
+			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
+
+		-
+			rawMessage: Class "SpomkyLabs\CborBundle\SpomkyLabsCborBundle" is not allowed to extend "Symfony\Component\HttpKernel\Bundle\Bundle".
+			identifier: ergebnis.noExtends
+			count: 1
+			path: ../src/SpomkyLabsCborBundle.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\SpomkyLabsCborBundle::build() has a parameter $container with a type declaration of Symfony\Component\DependencyInjection\ContainerBuilder, but containers should not be injected.'
+			identifier: ergebnis.noParameterWithContainerTypeDeclaration
+			count: 1
+			path: ../src/SpomkyLabsCborBundle.php
+
+		-
+			rawMessage: 'Method SpomkyLabs\CborBundle\SpomkyLabsCborBundle::getContainerExtension() has LogicException in PHPDoc @throws tag but it''s not thrown.'
+			identifier: throws.unusedType
+			count: 1
+			path: ../src/SpomkyLabsCborBundle.php
