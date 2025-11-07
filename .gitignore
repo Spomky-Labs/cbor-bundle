@@ -3,14 +3,3 @@
 /.phpunit.result.cache
 /.castor.stub.php
 /.phpunit.cache
-.phpunit.result.cache
-report.md
-*.cache
-*.log
-node_modules
-yarn.lock
-yarn-error.log
-/vendor
-/.phpunit.cache/
-/tmp*
-/.ci-tools/coverage

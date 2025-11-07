@@ -4,17 +4,11 @@
             "src"
         ]
     },
-    "timeout": 3,
     "logs": {
-        "text": "infection.txt"
+        "text": "infection.log"
     },
     "mutators": {
         "@default": true,
-        "global-ignoreSourceCodeByRegex": [
-            "\\$this->logger.*",
-            "\\$this->cache->save.*",
-            "parent::build(\\$container);"
-        ],
         "MBString": {
             "settings": {
                 "mb_substr": false,

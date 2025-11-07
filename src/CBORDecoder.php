@@ -14,7 +14,7 @@ use CBOR\StringStream;
 class CBORDecoder
 {
     public function __construct(
-        private readonly Decoder $decoder
+        private Decoder $decoder
     ) {
     }
 
