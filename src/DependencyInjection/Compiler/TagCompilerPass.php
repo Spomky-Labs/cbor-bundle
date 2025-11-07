@@ -9,9 +9,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class TagCompilerPass implements CompilerPassInterface
+final readonly class TagCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'cbor.tag';
+    public const string TAG = 'cbor.tag';
 
     public function process(ContainerBuilder $container): void
     {

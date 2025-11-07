@@ -25,14 +25,15 @@
         }
     },
     "require": {
-        "php": ">=8.0",
-        "spomky-labs/cbor-php": "^3.0",
-        "symfony/config": "^5.3|^6.0|^7.0|^8.0",
-        "symfony/dependency-injection": "^5.3|^6.0|^7.0|^8.0",
-        "symfony/http-kernel": "^5.3|^6.0|^7.0|^8.0"
+        "php": ">=8.3",
+        "spomky-labs/cbor-php": "^3.2",
+        "symfony/config": "^6.4|^7.0|^8.0",
+        "symfony/dependency-injection": "^6.4|^7.0|^8.0",
+        "symfony/http-kernel": "^6.4|^7.0|^8.0"
     },
     "require-dev": {
-        "symfony/framework-bundle": "^5.3|^6.0|^7.0|^8.0"
+        "symfony/serializer": "^6.4|^7.0|^8.0",
+        "symfony/framework-bundle": "^6.4|^7.0|^8.0"
     },
     "config": {
         "sort-packages": true,

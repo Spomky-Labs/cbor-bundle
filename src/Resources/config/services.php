@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 use CBOR\Decoder;
+use CBOR\Encoder;
 use CBOR\OtherObject\OtherObjectManager;
 use CBOR\Tag\TagManager;
 use SpomkyLabs\CborBundle\CBORDecoder;
+use SpomkyLabs\CborBundle\CBOREncoder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $container): void {
@@ -17,7 +19,9 @@ return static function (ContainerConfigurator $container): void {
     ;
 
     $container->set(Decoder::class)->public();
+    $container->set(Encoder::class)->public();
     $container->set(CBORDecoder::class)->public();
     $container->set(OtherObjectManager::class);
     $container->set(TagManager::class);
+    $container->set(CBOREncoder::class);
 };
