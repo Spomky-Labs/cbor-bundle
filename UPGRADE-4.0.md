@@ -85,7 +85,53 @@ $cbor = $serializer->serialize([
 ], 'cbor');
 ```
 
-### 2. Enum Support
+### 2. Object Serialization
+
+The encoder works seamlessly with Symfony's Serializer to serialize/deserialize PHP objects:
+
+```php
+use App\Model\Person;
+use Symfony\Component\Serializer\SerializerInterface;
+
+$serializer = $container->get(SerializerInterface::class);
+
+// Create and populate an object
+$person = new Person();
+$person->setName('foo');
+$person->setAge(99);
+$person->setSportsperson(false);
+
+// Serialize to CBOR
+$cborContent = $serializer->serialize($person, 'cbor');
+// $cborContent contains: A4646E616D6563666F6F6361676518636C73706F727473706572736F6EF469637265617465644174F6
+
+// Deserialize back to object
+$person = $serializer->deserialize($cborContent, Person::class, 'cbor');
+
+// Object is fully reconstructed
+assert($person->getName() === 'foo');
+assert($person->getAge() === 99);
+assert($person->isSportsperson() === false);
+```
+
+**Key benefits:**
+- Works with any serializable PHP object
+- Supports nested objects and complex structures
+- Handles DateTime objects automatically
+- Compatible with all Symfony normalizers
+
+**Example with arrays of objects:**
+```php
+$people = [
+    (new Person())->setName('Alice')->setAge(30),
+    (new Person())->setName('Bob')->setAge(25),
+];
+
+$cbor = $serializer->serialize($people, 'cbor');
+$deserializedPeople = $serializer->deserialize($cbor, Person::class . '[]', 'cbor');
+```
+
+### 3. Enum Support
 
 PHP 8.1+ enums are now fully supported:
 
@@ -111,7 +157,7 @@ $cbor = $serializer->serialize(Color::RED, 'cbor');
 // Encodes as "RED"
 ```
 
-### 3. Context Options for Encoding
+### 4. Context Options for Encoding
 
 You can now control encoding behavior using context options:
 
@@ -154,7 +200,7 @@ $cbor = $serializer->serialize($binaryData, 'cbor', [
 - `cbor_indefinite_list` (bool): Use indefinite length encoding for arrays
 - `cbor_indefinite_map` (bool): Use indefinite length encoding for maps
 
-### 4. Improved Error Handling
+### 5. Improved Error Handling
 
 Encoding and decoding errors now provide clearer error messages:
 
@@ -172,7 +218,7 @@ try {
 }
 ```
 
-### 5. Comprehensive Documentation
+### 6. Comprehensive Documentation
 
 All classes now have detailed PHPDoc comments:
 
