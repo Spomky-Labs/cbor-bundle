@@ -1,9 +1,11 @@
 # CBOR Bundle for Symfony
 
-![Build Status](https://github.com/spomky-labs/cbor-bundle/workflows/CI/badge.svg)
-[![Latest Stable Version](https://poser.pugx.org/spomky-labs/cbor-bundle/v/stable.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
-[![Total Downloads](https://poser.pugx.org/spomky-labs/cbor-bundle/downloads.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
-[![License](https://poser.pugx.org/spomky-labs/cbor-bundle/license.png)](https://packagist.org/packages/spomky-labs/cbor-bundle)
+[![Build Status](https://github.com/spomky-labs/cbor-bundle/actions/workflows/ci.yml/badge.svg)](https://github.com/spomky-labs/cbor-bundle/actions/workflows/ci.yml)
+[![Latest Stable Version](https://poser.pugx.org/spomky-labs/cbor-bundle/v/stable.svg)](https://packagist.org/packages/spomky-labs/cbor-bundle)
+[![Total Downloads](https://poser.pugx.org/spomky-labs/cbor-bundle/downloads.svg)](https://packagist.org/packages/spomky-labs/cbor-bundle)
+[![License](https://poser.pugx.org/spomky-labs/cbor-bundle/license.svg)](https://packagist.org/packages/spomky-labs/cbor-bundle)
+
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/spomky-labs/cbor-bundle/badge)](https://securityscorecards.dev/viewer/?uri=github.com/spomky-labs/cbor-bundle)
 
 A Symfony bundle that provides CBOR (Concise Binary Object Representation) encoding and decoding support for the Symfony Serializer component.
 
