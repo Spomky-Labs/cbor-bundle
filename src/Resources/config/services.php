@@ -24,4 +24,8 @@ return static function (ContainerConfigurator $container): void {
     $container->set(OtherObjectManager::class);
     $container->set(TagManager::class);
     $container->set(CBOREncoder::class);
+
+    // Service aliases for easier access
+    $container->alias('cbor.decoder', CBORDecoder::class)->public();
+    $container->alias('cbor.encoder', CBOREncoder::class)->public();
 };

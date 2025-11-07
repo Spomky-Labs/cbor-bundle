@@ -43,7 +43,7 @@ final readonly class CBOREncoder implements DecoderInterface, EncoderInterface
      *
      * @param string $data The CBOR binary data to decode
      * @param string $format The format being decoded (must be 'cbor')
-     * @param array<string, mixed> $context Additional context for decoding (currently unused)
+     * @param array<mixed> $context Additional context for decoding (currently unused)
      *
      * @return mixed The decoded PHP value
      *
@@ -80,7 +80,7 @@ final readonly class CBOREncoder implements DecoderInterface, EncoderInterface
      *
      * @param mixed $data The PHP value to encode
      * @param string $format The format being encoded (must be 'cbor')
-     * @param array<string, mixed> $context Encoding options
+     * @param array<mixed> $context Encoding options
      *
      * @return string The CBOR binary data
      *
@@ -122,7 +122,7 @@ final readonly class CBOREncoder implements DecoderInterface, EncoderInterface
     /**
      * Builds encoding options from the context array.
      *
-     * @param array<string, mixed> $context The encoding context
+     * @param array<mixed> $context The encoding context
      *
      * @return int Bitwise OR of Encoder constants
      */
@@ -130,23 +130,23 @@ final readonly class CBOREncoder implements DecoderInterface, EncoderInterface
     {
         $options = 0;
 
-        if ($context['cbor_indefinite_text_string'] ?? false) {
+        if (($context['cbor_indefinite_text_string'] ?? false) === true) {
             $options |= Encoder::INDEFINITE_TEXT_STRING_LENGTH;
         }
 
-        if ($context['cbor_indefinite_byte_string'] ?? false) {
+        if (($context['cbor_indefinite_byte_string'] ?? false) === true) {
             $options |= Encoder::INDEFINITE_BYTE_STRING_LENGTH;
         }
 
-        if ($context['cbor_indefinite_list'] ?? false) {
+        if (($context['cbor_indefinite_list'] ?? false) === true) {
             $options |= Encoder::INDEFINITE_LIST_LENGTH;
         }
 
-        if ($context['cbor_indefinite_map'] ?? false) {
+        if (($context['cbor_indefinite_map'] ?? false) === true) {
             $options |= Encoder::INDEFINITE_MAP_LENGTH;
         }
 
-        if ($context['cbor_single_precision_float'] ?? false) {
+        if (($context['cbor_single_precision_float'] ?? false) === true) {
             $options |= Encoder::FLOAT_FORMAT_SINGLE_PRECISION;
         }
 
