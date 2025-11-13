@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Functional;
+namespace SpomkyLabs\CborBundle\Tests\Functional;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use function is_string;
+use function strlen;
 
 /**
  * @internal
@@ -107,7 +108,7 @@ final class SerializerTest extends KernelTestCase
 
     public static function getEncodingInputs(): iterable
     {
-        // Integers (positive)
+        // Integers (positive) - encoding takes PHP int as input
         yield ['00', 0];
         yield ['01', 1];
         yield ['0a', 10];
@@ -118,7 +119,7 @@ final class SerializerTest extends KernelTestCase
         yield ['1903e8', 1000];
         yield ['1a000f4240', 1000000];
 
-        // Integers (negative)
+        // Integers (negative) - encoding takes PHP int as input
         yield ['20', -1];
         yield ['29', -10];
         yield ['3863', -100];
@@ -147,8 +148,16 @@ final class SerializerTest extends KernelTestCase
         yield ['8301820203820405', [1, [2, 3], [4, 5]]];
 
         // Maps (associative arrays - note: in PHP, empty array is always a list)
-        yield ['a201020304', [1 => 2, 3 => 4]];
-        yield ['a26161016162820203', ['a' => 1, 'b' => [2, 3]]];
+        yield [
+            'a201020304', [
+                1 => 2,
+                3 => 4,
+            ]];
+        yield [
+            'a26161016162820203', [
+                'a' => 1,
+                'b' => [2, 3],
+            ]];
     }
 
     #[Test]
@@ -162,8 +171,12 @@ final class SerializerTest extends KernelTestCase
         $encoder = static::getContainer()->get(EncoderInterface::class);
 
         // When - Encode with single precision float
-        $resultSinglePrecision = $encoder->encode(1.1, 'cbor', ['cbor_single_precision_float' => true]);
-        $resultDoublePrecision = $encoder->encode(1.1, 'cbor', ['cbor_single_precision_float' => false]);
+        $resultSinglePrecision = $encoder->encode(1.1, 'cbor', [
+            'cbor_single_precision_float' => true,
+        ]);
+        $resultDoublePrecision = $encoder->encode(1.1, 'cbor', [
+            'cbor_single_precision_float' => false,
+        ]);
 
         //Then - Single precision should be shorter
         static::assertLessThan(strlen($resultDoublePrecision), strlen($resultSinglePrecision));

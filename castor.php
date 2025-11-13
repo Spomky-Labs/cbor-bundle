@@ -138,7 +138,7 @@ function phpunit(): void
 {
     phpqa(
         [
-            'composer', 'exec', '--', 'phpunit-11',
+            'composer', 'exec', '--', 'phpunit',
             '--coverage-xml', '.ci-tools/coverage',
             '--log-junit=.ci-tools/coverage/junit.xml',
             '--configuration', '.ci-tools/phpunit.xml.dist',

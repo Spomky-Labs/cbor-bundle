@@ -13,6 +13,9 @@ use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Throwable;
 use UnitEnum;
+use function is_array;
+use function is_string;
+use function sprintf;
 
 /**
  * CBOR Encoder/Decoder for Symfony Serializer component.
@@ -46,21 +49,16 @@ final readonly class CBOREncoder implements DecoderInterface, EncoderInterface
      * @param array<mixed> $context Additional context for decoding (currently unused)
      *
      * @return mixed The decoded PHP value
-     *
-     * @throws InvalidArgumentException If decoding fails
      */
     public function decode(string $data, string $format, array $context = []): mixed
     {
         try {
             $result = $this->decoder->decode($data);
+            $normalized = $result instanceof Normalizable ? $result->normalize() : $result;
 
-            return $result instanceof Normalizable ? $result->normalize() : $result;
+            return $this->convertNumericStrings($normalized);
         } catch (Throwable $e) {
-            throw new InvalidArgumentException(
-                sprintf('Unable to decode CBOR data: %s', $e->getMessage()),
-                0,
-                $e
-            );
+            throw new InvalidArgumentException(sprintf('Unable to decode CBOR data: %s', $e->getMessage()), 0, $e);
         }
     }
 
@@ -83,8 +81,6 @@ final readonly class CBOREncoder implements DecoderInterface, EncoderInterface
      * @param array<mixed> $context Encoding options
      *
      * @return string The CBOR binary data
-     *
-     * @throws InvalidArgumentException If encoding fails or data type is unsupported
      */
     public function encode(mixed $data, string $format, array $context = []): string
     {
@@ -151,5 +147,36 @@ final readonly class CBOREncoder implements DecoderInterface, EncoderInterface
         }
 
         return $options;
+    }
+
+    /**
+     * Recursively converts numeric strings to integers.
+     *
+     * This method converts them back to native PHP integers for compatibility,
+     * but keeps strings for values outside PHP's integer range.
+     *
+     * @param mixed $value The value to process
+     *
+     * @return mixed The processed value with numeric strings converted to integers
+     */
+    private function convertNumericStrings(mixed $value): mixed
+    {
+        if (is_string($value) && is_numeric($value)) {
+            if (preg_match('/^-?\d+$/', $value) === 1) {
+                $intValue = (int) $value;
+                if ((string) $intValue === $value) {
+                    return $intValue;
+                }
+                return $value;
+            }
+        }
+
+        if (is_array($value)) {
+            foreach ($value as $key => $item) {
+                $value[$key] = $this->convertNumericStrings($item);
+            }
+        }
+
+        return $value;
     }
 }
