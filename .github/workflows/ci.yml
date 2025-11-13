@@ -177,12 +177,17 @@ jobs:
       - check_licenses
       - deptrac
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental || false }}
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - php-version: '8.2'
+          - php-version: '8.3'
+            lowest-deps: true
           - php-version: '8.3'
           - php-version: '8.4'
+          - php-version: '8.5'
+            experimental: true
     container:
       image: ghcr.io/spomky-labs/phpqa:${{ matrix.php-version }}
     env:
