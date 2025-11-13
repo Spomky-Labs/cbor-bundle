@@ -2,51 +2,45 @@
 
 ## Table of Contents
 
-1. [Breaking Changes](#breaking-changes)
-2. [New Features](#new-features)
-3. [Migration Guide](#migration-guide)
+1. [Summary](#summary)
+2. [Breaking Changes](#breaking-changes)
+3. [New Features](#new-features)
+4. [Migration Guide](#migration-guide)
+
+## Summary
+
+Version 4.0 is a **major feature release** that adds full Symfony Serializer integration through the new `CBOREncoder` class.
+
+**Good news:** If you only used `CBORDecoder` in version 3.x, **there are NO breaking changes**. Your code will continue to work without modifications.
+
+The new features are entirely additive:
+- ✅ `CBORDecoder` - Still works exactly the same
+- ✨ `CBOREncoder` - NEW class for Symfony Serializer integration
+- ✨ Full type support (objects, enums, arrays, etc.)
+- ✨ Context options for encoding control
 
 ## Breaking Changes
 
-### Class Renaming
+**There are NO breaking changes** if you were using the bundle in version 3.x with `CBORDecoder`.
 
-**Before (3.x):**
-```php
-use SpomkyLabs\CborBundle\Normalizer\CBORNormalizer;
+### What Changed
 
-class MyService
-{
-    public function __construct(
-        private CBORNormalizer $normalizer
-    ) {}
-}
-```
+**Version 3.x provided:**
+- `CBORDecoder` - Low-level CBOR decoding only
 
-**After (4.0):**
-```php
-use SpomkyLabs\CborBundle\CBOREncoder;
+**Version 4.0 adds:**
+- `CBOREncoder` - NEW Symfony Serializer encoder/decoder
+- Service aliases: `cbor.encoder` and `cbor.decoder`
+- Full object serialization support
+- Enum support
+- Context options
 
-class MyService
-{
-    public function __construct(
-        private CBOREncoder $encoder
-    ) {}
-}
-```
+### PHP Version Requirement
 
-### Namespace Changes
+- **3.x:** PHP 8.2+
+- **4.0:** PHP 8.3+
 
-- **Old:** `SpomkyLabs\CborBundle\Normalizer\CBORNormalizer`
-- **New:** `SpomkyLabs\CborBundle\CBOREncoder`
-
-The class was renamed to better reflect its purpose. It implements `EncoderInterface` and `DecoderInterface`, not `NormalizerInterface`.
-
-### File Location Changes
-
-- **Old:** `src/Normalizer/CBORNormalizer.php`
-- **New:** `src/CBOREncoder.php`
-
-The encoder is now in the root `src/` directory alongside `CBORDecoder.php`.
+If you're still on PHP 8.2, you'll need to upgrade to PHP 8.3 or higher.
 
 ## New Features
 
@@ -229,55 +223,115 @@ All classes now have detailed PHPDoc comments:
 
 ## Migration Guide
 
-### Step 1: Update Service Injections
+### Step 1: Update PHP Version (Required)
 
-If you're injecting the encoder directly:
+Ensure you're running PHP 8.3 or higher:
 
-```diff
-use SpomkyLabs\CborBundle\Normalizer\CBORNormalizer;
-+use SpomkyLabs\CborBundle\CBOREncoder;
+```bash
+php -v
+```
+
+If you're on PHP 8.2, upgrade to PHP 8.3+ before updating to version 4.0.
+
+### Step 2: Update the Bundle
+
+Update the bundle via Composer:
+
+```bash
+composer require spomky-labs/cbor-bundle:^4.0
+```
+
+### Step 3: Verify Existing Code (CBORDecoder users)
+
+**If you only used `CBORDecoder` in version 3.x, you're done!** No changes needed.
+
+Your existing code will continue to work:
+
+```php
+use SpomkyLabs\CborBundle\CBORDecoder;
 
 class MyService
 {
     public function __construct(
--       private CBORNormalizer $normalizer
-+       private CBOREncoder $encoder
+        private CBORDecoder $decoder
+    ) {}
+
+    public function decode(string $cborData): CBORObject
+    {
+        return $this->decoder->decode($cborData);
+    }
+}
+```
+
+### Step 4: (Optional) Start Using New Features
+
+If you want to use the new Symfony Serializer integration:
+
+#### Option A: Use the Serializer (Recommended)
+
+```php
+use Symfony\Component\Serializer\SerializerInterface;
+
+class MyService
+{
+    public function __construct(
+        private SerializerInterface $serializer
+    ) {}
+
+    public function encodeData(array $data): string
+    {
+        return $this->serializer->serialize($data, 'cbor');
+    }
+
+    public function decodeData(string $cborData): array
+    {
+        return $this->serializer->deserialize($cborData, 'array', 'cbor');
+    }
+}
+```
+
+#### Option B: Use CBOREncoder Directly
+
+```php
+use SpomkyLabs\CborBundle\CBOREncoder;
+
+class MyService
+{
+    public function __construct(
+        private CBOREncoder $encoder
     ) {}
 }
 ```
 
-### Step 2: Update Service Configuration (if using manual wiring)
+#### Option C: Use Service Aliases
 
-If you have custom service definitions:
+```php
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-```diff
-# config/services.yaml
-services:
--   app.cbor_service:
--       class: SpomkyLabs\CborBundle\Normalizer\CBORNormalizer
-+   app.cbor_service:
-+       class: SpomkyLabs\CborBundle\CBOREncoder
-        # ... rest of configuration
+class MyService
+{
+    public function __construct(
+        #[Autowire(service: 'cbor.encoder')]
+        private $encoder
+    ) {}
+}
 ```
 
-### Step 3: Verify Autowiring
+### Step 5: Test Your Application
 
-If you're using Symfony's autowiring (recommended), no changes are needed. The encoder will be automatically injected as `EncoderInterface` or `DecoderInterface`.
-
-### Step 4: Test Your Application
-
-Run your test suite to ensure everything works as expected:
+Run your test suite to ensure everything works:
 
 ```bash
 php bin/phpunit
 ```
 
-### Step 5: (Optional) Use New Features
+### Step 6: (Optional) Explore New Features
 
-Consider using the new features:
-- Add context options for better control over encoding
-- Use enum support if you're on PHP 8.1+
-- Take advantage of improved error messages for debugging
+Take advantage of the new capabilities:
+- Serialize PHP objects to CBOR
+- Use context options for encoding control
+- Handle enums natively
+- Better error messages for debugging
 
 ## Questions?
 
