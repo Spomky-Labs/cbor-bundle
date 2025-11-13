@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SpomkyLabs\CborBundle\Tests\Functional;
 
+use DateTimeImmutable;
+use DateTimeInterface;
 use PHPUnit\Framework\Attributes\Test;
 use SpomkyLabs\CborBundle\Tests\Fixtures\Person;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -77,7 +79,7 @@ final class ObjectSerializationTest extends KernelTestCase
         $person->setName('Alice');
         $person->setAge(30);
         $person->setSportsperson(true);
-        $person->setCreatedAt(new \DateTimeImmutable('2024-01-15T10:30:00+00:00'));
+        $person->setCreatedAt(new DateTimeImmutable('2024-01-15T10:30:00+00:00'));
 
         // When - Serialize and deserialize
         $cborContent = $serializer->serialize($person, 'cbor');
@@ -88,10 +90,11 @@ final class ObjectSerializationTest extends KernelTestCase
         static::assertSame('Alice', $deserializedPerson->getName());
         static::assertSame(30, $deserializedPerson->getAge());
         static::assertTrue($deserializedPerson->isSportsperson());
-        static::assertInstanceOf(\DateTimeInterface::class, $deserializedPerson->getCreatedAt());
+        static::assertInstanceOf(DateTimeInterface::class, $deserializedPerson->getCreatedAt());
         static::assertSame(
             '2024-01-15T10:30:00+00:00',
-            $deserializedPerson->getCreatedAt()->format(\DateTimeInterface::ATOM)
+            $deserializedPerson->getCreatedAt()
+                ->format(DateTimeInterface::ATOM)
         );
     }
 
@@ -105,10 +108,14 @@ final class ObjectSerializationTest extends KernelTestCase
         $serializer = static::getContainer()->get(SerializerInterface::class);
 
         $person1 = new Person();
-        $person1->setName('Alice')->setAge(30)->setSportsperson(true);
+        $person1->setName('Alice')
+            ->setAge(30)
+            ->setSportsperson(true);
 
         $person2 = new Person();
-        $person2->setName('Bob')->setAge(25)->setSportsperson(false);
+        $person2->setName('Bob')
+            ->setAge(25)
+            ->setSportsperson(false);
 
         $people = [$person1, $person2];
 
