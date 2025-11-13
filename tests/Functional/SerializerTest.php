@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Functional;
+namespace SpomkyLabs\CborBundle\Tests\Functional;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
