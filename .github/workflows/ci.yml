@@ -184,9 +184,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # No lowest-deps entry on this branch: the released constraints span Symfony 5.3 to 7.x per
+        # component, and `--prefer-lowest` resolves them into cross-major mixes (config 5.4 with
+        # dependency-injection 6.0) that no real installation produces.
         include:
-          - php-version: '8.2'
-            lowest-deps: true
           - php-version: '8.2'
           - php-version: '8.3'
           - php-version: '8.4'
@@ -195,7 +196,7 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:${{ matrix.php-version }}
     env:
-      XDEBUG_MODE: coverage
+      XDEBUG_MODE: 'off'
       PHP_VERSION: ${{ matrix.php-version }}
     steps:
       - uses: actions/checkout@v5
@@ -207,8 +208,10 @@ jobs:
             composer install --no-interaction --no-progress
           fi
 
+      # PHPUnit is invoked directly rather than through `castor phpunit`: castor itself requires PHP >= 8.4 and
+      # this job also runs on the older versions of the matrix. Coverage is produced by the mutation testing job.
       - name: Run PHPUnit
-        run: castor phpunit
+        run: composer exec -- phpunit-11 --configuration .ci-tools/phpunit.xml.dist
 
   infection:
     name: "🧬 Mutation Testing"
