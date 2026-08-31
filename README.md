@@ -42,6 +42,25 @@ $data = hex2bin('fb3fd5555555555555');
 $object = $container->get(CBORDecoder::class)->decode($data); // Return a CBOR\OtherObject\DoublePrecisionFloatObject class with normalized value ~0.3333 (=1/3)
 ```
 
+## Configuration
+
+Decoding is a recursive operation: deeply nested data — nested arrays, maps or tags cost one byte per level — can
+exhaust the call stack and crash the PHP process. The decoder rejects data nested deeper than `max_depth` with an
+`InvalidArgumentException`.
+
+```yaml
+# config/packages/cbor.yaml
+cbor:
+    max_depth: 1000 # Default value (CBOR\Decoder::DEFAULT_MAX_DEPTH)
+```
+
+When the data comes from an untrusted source, a much lower value is recommended:
+
+```yaml
+cbor:
+    max_depth: 32
+```
+
 ## Custom Tags / Other Objects
 
 *To be written*

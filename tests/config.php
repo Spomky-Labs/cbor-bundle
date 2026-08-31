@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 return static function (ContainerConfigurator $container) {
+    $container->extension('cbor', [
+        'max_depth' => 64,
+    ]);
     $container->extension('framework', [
         'test' => true,
         'secret' => 'test',
