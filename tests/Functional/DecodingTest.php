@@ -6,13 +6,13 @@ namespace SpomkyLabs\CborBundle\Tests\Functional;
 
 use CBOR\Decoder;
 use CBOR\Normalizable;
+use function is_string;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
 use SpomkyLabs\CborBundle\CBORDecoder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use function is_string;
 
 /**
  * @internal
@@ -22,10 +22,10 @@ final class DecodingTest extends KernelTestCase
     #[Test]
     public static function theDecoderServiceIsAvailable(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
-        //Then
+        // Then
         static::assertTrue(static::getContainer()->has(Decoder::class));
     }
 
@@ -34,7 +34,7 @@ final class DecodingTest extends KernelTestCase
     #[Depends('theDecoderServiceIsAvailable')]
     public static function theDecoderCanDecodeInputs(string $data, string $expectedNormalizedValue): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var CBORDecoder $decoder */
@@ -47,7 +47,7 @@ final class DecodingTest extends KernelTestCase
         // When
         $result = $decoder->decode($binary);
 
-        //Then
+        // Then
         if ($result instanceof Normalizable) {
             static::assertSame($expectedNormalizedValue, $result->normalize());
         }

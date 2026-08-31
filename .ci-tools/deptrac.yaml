@@ -1,0 +1,10 @@
+parameters:
+  paths:
+    - '../src'
+  layers:
+    - name: 'Vendors'
+      collectors:
+        - { type: 'classLike', value: '^Brick\\' }
+  ruleset:
+    Bundle:
+      - Vendors

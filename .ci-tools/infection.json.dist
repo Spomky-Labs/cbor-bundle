@@ -1,0 +1,28 @@
+{
+    "source": {
+        "directories": [
+            "../src"
+        ]
+    },
+    "timeout": 3,
+    "phpUnit": {
+        "configDir": "."
+    },
+    "logs": {
+        "text": "../infection.txt"
+    },
+    "mutators": {
+        "@default": true,
+        "global-ignoreSourceCodeByRegex": [
+            "\\$this->logger.*",
+            "\\$this->cache->save.*",
+            "parent::build(\\$container);"
+        ],
+        "MBString": {
+            "settings": {
+                "mb_substr": false,
+                "mb_strlen": false
+            }
+        }
+    }
+}
