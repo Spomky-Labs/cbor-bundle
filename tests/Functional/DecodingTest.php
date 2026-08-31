@@ -32,7 +32,7 @@ final class DecodingTest extends KernelTestCase
     #[Test]
     #[DataProvider('getInputs')]
     #[Depends('theDecoderServiceIsAvailable')]
-    public static function theDecoderCanDecodeInputs(string $data, string $expectedNormalizedValue): void
+    public static function theDecoderCanDecodeInputs(string $data, mixed $expectedNormalizedValue): void
     {
         // Given
         static::bootKernel();

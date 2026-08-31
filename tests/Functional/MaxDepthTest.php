@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 final class MaxDepthTest extends KernelTestCase
 {
-    private const CONFIGURED_MAX_DEPTH = 64;
+    private const int CONFIGURED_MAX_DEPTH = 64;
 
     #[Test]
     public function theConfiguredMaximumDepthIsAvailableAsAParameter(): void

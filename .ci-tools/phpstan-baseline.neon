@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			rawMessage: Class SpomkyLabs\CborBundle\CBORDecoder is neither abstract nor final.
-			identifier: ergebnis.final
-			count: 1
-			path: ../src/CBORDecoder.php
-
-		-
 			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\Compiler\OtherObjectCompilerPass::process() has a parameter $container with a type declaration of Symfony\Component\DependencyInjection\ContainerBuilder, but containers should not be injected.'
 			identifier: ergebnis.noParameterWithContainerTypeDeclaration
 			count: 1
@@ -19,14 +13,8 @@ parameters:
 			path: ../src/DependencyInjection/Compiler/TagCompilerPass.php
 
 		-
-			rawMessage: Class "SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension" is not allowed to extend "Symfony\Component\HttpKernel\DependencyInjection\Extension".
+			rawMessage: Class "SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension" is not allowed to extend "Symfony\Component\DependencyInjection\Extension\Extension".
 			identifier: ergebnis.noExtends
-			count: 1
-			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
-
-		-
-			rawMessage: Class SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension extends internal class Symfony\Component\HttpKernel\DependencyInjection\Extension.
-			identifier: class.extendsInternalClass
 			count: 1
 			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
 

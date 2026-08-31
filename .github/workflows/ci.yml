@@ -17,7 +17,7 @@ jobs:
     name: "0️⃣ Pre-checks"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: "Check file permissions"
         run: |
@@ -44,14 +44,14 @@ jobs:
     outputs:
       cache-key: ${{ steps.cache-key-generator.outputs.key }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - id: cache-key-generator
         # composer.lock is not committed: hashing it alone yields an empty, always-shared
         # cache key that hands the other jobs whatever vendor/ was cached last.
         run: echo "key=composer-${{ runner.os }}-${{ hashFiles('composer.json', 'composer.lock') }}" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: |
             vendor
@@ -60,7 +60,7 @@ jobs:
           restore-keys: |
             composer-${{ runner.os }}-
 
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@v4
         with:
           dependency-versions: highest
           composer-options: --optimize-autoloader
@@ -72,8 +72,8 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v5
         with:
           path: |
             vendor
@@ -88,8 +88,8 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v5
         with:
           path: |
             vendor
@@ -104,8 +104,8 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v5
         with:
           path: |
             vendor
@@ -120,8 +120,8 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v5
         with:
           path: |
             vendor
@@ -139,7 +139,7 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - run: composer exec -- parallel-lint src tests
 
   check_licenses:
@@ -149,7 +149,7 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - run: castor check-licenses
 
   deptrac:
@@ -159,8 +159,8 @@ jobs:
     container:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v5
         with:
           path: |
             vendor
@@ -184,11 +184,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # No lowest-deps entry on this branch: the released constraints span Symfony 5.3 to 7.x per
-        # component, and `--prefer-lowest` resolves them into cross-major mixes (config 5.4 with
-        # dependency-injection 6.0) that no real installation produces.
         include:
-          - php-version: '8.2'
+          - php-version: '8.3'
+            lowest-deps: true
           - php-version: '8.3'
           - php-version: '8.4'
           - php-version: '8.5'
@@ -199,7 +197,7 @@ jobs:
       XDEBUG_MODE: 'off'
       PHP_VERSION: ${{ matrix.php-version }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install dependencies
         run: |
           if [ "${{ matrix.lowest-deps || 'false' }}" = "true" ]; then
@@ -223,7 +221,7 @@ jobs:
     env:
       XDEBUG_MODE: coverage
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
       - name: Run PHPUnit
@@ -236,10 +234,10 @@ jobs:
     needs: [prepare_dependencies]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Check exported files
         run: |
-          EXPECTED="CODE_OF_CONDUCT.md,LICENSE,README.md,SECURITY.md,composer.json"
+          EXPECTED="CODE_OF_CONDUCT.md,LICENSE,README.md,RELEASES.md,SECURITY.md,UPGRADE-4.0.md,composer.json"
           CURRENT=$(git archive HEAD | tar --list | grep -v '/$' | grep -Ev '^(assets|bin|config|fixtures|frankenphp|migrations|public|src|templates|translations)/' | sort | paste -sd "," -)
           echo "CURRENT = ${CURRENT}"
           echo "EXPECTED = ${EXPECTED}"

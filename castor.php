@@ -81,7 +81,7 @@ function console(#[AsRawTokens] array $args = []): void
 function php(#[AsRawTokens] array $args = []): void
 {
     $inContainer = file_exists('/.dockerenv');
-    $hasDocker = mb_trim(shell_exec('command -v docker') ?? '') !== '';
+    $hasDocker = trim(shell_exec('command -v docker') ?? '') !== '';
 
     if (! $hasDocker || $inContainer) {
         run($args);
@@ -94,7 +94,7 @@ function php(#[AsRawTokens] array $args = []): void
 function phpqa(array $command, array $dockerOptions = []): void
 {
     $inContainer = file_exists('/.dockerenv');
-    $hasDocker = mb_trim(shell_exec('command -v docker') ?? '') !== '';
+    $hasDocker = trim(shell_exec('command -v docker') ?? '') !== '';
     $phpVersion = getenv('PHP_VERSION') ?: \PHP_MAJOR_VERSION . '.' . \PHP_MINOR_VERSION;
 
     if (! $hasDocker || $inContainer) {
