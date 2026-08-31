@@ -13,14 +13,8 @@ parameters:
 			path: ../src/DependencyInjection/Compiler/TagCompilerPass.php
 
 		-
-			rawMessage: Class "SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension" is not allowed to extend "Symfony\Component\HttpKernel\DependencyInjection\Extension".
+			rawMessage: Class "SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension" is not allowed to extend "Symfony\Component\DependencyInjection\Extension\Extension".
 			identifier: ergebnis.noExtends
-			count: 1
-			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
-
-		-
-			rawMessage: Class SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension extends internal class Symfony\Component\HttpKernel\DependencyInjection\Extension.
-			identifier: class.extendsInternalClass
 			count: 1
 			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
 
