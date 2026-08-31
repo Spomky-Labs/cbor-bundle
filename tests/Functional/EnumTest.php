@@ -16,7 +16,7 @@ final class EnumTest extends KernelTestCase
     #[Test]
     public function itCanEncodeBackedEnums(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var EncoderInterface $encoder */
@@ -25,14 +25,14 @@ final class EnumTest extends KernelTestCase
         // When - Encode a backed enum (int)
         $result = $encoder->encode(TestBackedIntEnum::CASE_ONE, 'cbor');
 
-        //Then - Should encode the backing value (1)
+        // Then - Should encode the backing value (1)
         static::assertSame("\x01", $result); // CBOR for integer 1
     }
 
     #[Test]
     public function itCanEncodeBackedStringEnums(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var EncoderInterface $encoder */
@@ -41,14 +41,14 @@ final class EnumTest extends KernelTestCase
         // When - Encode a backed enum (string)
         $result = $encoder->encode(TestBackedStringEnum::FOO, 'cbor');
 
-        //Then - Should encode the backing value ("foo")
+        // Then - Should encode the backing value ("foo")
         static::assertSame(hex2bin('63666f6f'), $result); // CBOR for "foo"
     }
 
     #[Test]
     public function itCanEncodeUnitEnums(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var EncoderInterface $encoder */
@@ -57,7 +57,7 @@ final class EnumTest extends KernelTestCase
         // When - Encode a unit enum
         $result = $encoder->encode(TestUnitEnum::BAR, 'cbor');
 
-        //Then - Should encode the name ("BAR")
+        // Then - Should encode the name ("BAR")
         static::assertSame(hex2bin('63424152'), $result); // CBOR for "BAR"
     }
 }

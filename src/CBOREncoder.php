@@ -9,13 +9,13 @@ use CBOR\CBORObject;
 use CBOR\Encoder;
 use CBOR\Normalizable;
 use InvalidArgumentException;
+use function is_array;
+use function is_string;
+use function sprintf;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Throwable;
 use UnitEnum;
-use function is_array;
-use function is_string;
-use function sprintf;
 
 /**
  * CBOR Encoder/Decoder for Symfony Serializer component.
