@@ -43,6 +43,26 @@ return [
 ];
 ```
 
+## Configuration
+
+The bundle works out of the box. A single option controls how deeply nested a CBOR data item may be before the
+decoder rejects it:
+
+```yaml
+# config/packages/cbor.yaml
+cbor:
+    max_depth: 1000 # Default value
+```
+
+Decoding is a recursive operation: a deeply nested payload — nested arrays, maps or tags cost one byte per level —
+can exhaust the call stack and crash the PHP process. Data nested deeper than `max_depth` is rejected with an
+`InvalidArgumentException` instead. When the data comes from an untrusted source, a much lower value is recommended:
+
+```yaml
+cbor:
+    max_depth: 32
+```
+
 ## Basic Usage
 
 ### Encoding Data
