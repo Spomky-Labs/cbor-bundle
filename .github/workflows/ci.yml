@@ -47,7 +47,9 @@ jobs:
       - uses: actions/checkout@v5
 
       - id: cache-key-generator
-        run: echo "key=composer-${{ runner.os }}-${{ hashFiles('composer.lock') }}" >> $GITHUB_OUTPUT
+        # composer.lock is not committed: hashing it alone yields an empty, always-shared
+        # cache key that hands the other jobs whatever vendor/ was cached last.
+        run: echo "key=composer-${{ runner.os }}-${{ hashFiles('composer.json', 'composer.lock') }}" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v4
         with:
