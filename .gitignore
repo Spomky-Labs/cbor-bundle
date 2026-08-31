@@ -14,3 +14,4 @@ yarn-error.log
 /.phpunit.cache/
 /tmp*
 /.ci-tools/coverage
+infection.txt
