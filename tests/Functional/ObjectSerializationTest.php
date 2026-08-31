@@ -21,7 +21,7 @@ final class ObjectSerializationTest extends KernelTestCase
     #[Test]
     public function itCanSerializeAndDeserializeObjects(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var SerializerInterface $serializer */
@@ -69,7 +69,7 @@ final class ObjectSerializationTest extends KernelTestCase
     #[Test]
     public function itCanHandleComplexObjects(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var SerializerInterface $serializer */
@@ -101,7 +101,7 @@ final class ObjectSerializationTest extends KernelTestCase
     #[Test]
     public function itCanHandleArraysOfObjects(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var SerializerInterface $serializer */
@@ -147,7 +147,7 @@ final class ObjectSerializationTest extends KernelTestCase
     #[Test]
     public function itHandlesEmptyObjects(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var SerializerInterface $serializer */

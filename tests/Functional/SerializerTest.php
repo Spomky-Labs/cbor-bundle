@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace SpomkyLabs\CborBundle\Tests\Functional;
 
+use function is_string;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
+use function strlen;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use function is_string;
-use function strlen;
 
 /**
  * @internal
@@ -23,10 +23,10 @@ final class SerializerTest extends KernelTestCase
     #[Test]
     public static function theSerializerIsAvailable(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
-        //Then
+        // Then
         static::assertTrue(static::getContainer()->has(NormalizerInterface::class));
     }
 
@@ -35,7 +35,7 @@ final class SerializerTest extends KernelTestCase
     #[Depends('theSerializerIsAvailable')]
     public static function theSerializerCanDecodeInputs(string $data, mixed $expectedNormalizedValue): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var DecoderInterface $decoder */
@@ -48,7 +48,7 @@ final class SerializerTest extends KernelTestCase
         // When
         $result = $decoder->decode($binary, 'cbor');
 
-        //Then
+        // Then
         static::assertSame($expectedNormalizedValue, $result);
     }
 
@@ -57,7 +57,7 @@ final class SerializerTest extends KernelTestCase
     #[Depends('theSerializerIsAvailable')]
     public static function theSerializerCanEncodeInputs(string $data, mixed $expectedNormalizedValue): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var EncoderInterface $encoder */
@@ -70,7 +70,7 @@ final class SerializerTest extends KernelTestCase
         // When
         $result = $encoder->encode($expectedNormalizedValue, 'cbor');
 
-        //Then
+        // Then
         static::assertSame($expectedBinary, $result);
     }
 
@@ -164,7 +164,7 @@ final class SerializerTest extends KernelTestCase
     #[Depends('theSerializerIsAvailable')]
     public static function theSerializerCanEncodeWithContextOptions(): void
     {
-        //Given
+        // Given
         static::bootKernel();
 
         /** @var EncoderInterface $encoder */
@@ -178,7 +178,7 @@ final class SerializerTest extends KernelTestCase
             'cbor_single_precision_float' => false,
         ]);
 
-        //Then - Single precision should be shorter
+        // Then - Single precision should be shorter
         static::assertLessThan(strlen($resultDoublePrecision), strlen($resultSinglePrecision));
         static::assertSame("\xfa\x3f\x8c\xcc\xcd", $resultSinglePrecision); // single precision
         static::assertSame(hex2bin('fb3ff199999999999a'), $resultDoublePrecision); // double precision
