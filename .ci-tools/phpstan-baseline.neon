@@ -31,12 +31,6 @@ parameters:
 			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
 
 		-
-			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension::getConfiguration() has a nullable return type declaration.'
-			identifier: ergebnis.noNullableReturnTypeDeclaration
-			count: 1
-			path: ../src/DependencyInjection/SpomkyLabsCborExtension.php
-
-		-
 			rawMessage: 'Method SpomkyLabs\CborBundle\DependencyInjection\SpomkyLabsCborExtension::getConfiguration() has a parameter $container with a type declaration of Symfony\Component\DependencyInjection\ContainerBuilder, but containers should not be injected.'
 			identifier: ergebnis.noParameterWithContainerTypeDeclaration
 			count: 1
