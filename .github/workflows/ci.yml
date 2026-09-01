@@ -51,7 +51,7 @@ jobs:
         # cache key that hands the other jobs whatever vendor/ was cached last.
         run: echo "key=composer-${{ runner.os }}-${{ hashFiles('composer.json', 'composer.lock') }}" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -73,7 +73,7 @@ jobs:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -89,7 +89,7 @@ jobs:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -105,7 +105,7 @@ jobs:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -121,7 +121,7 @@ jobs:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -160,7 +160,7 @@ jobs:
       image: ghcr.io/spomky-labs/phpqa:8.4
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             vendor
