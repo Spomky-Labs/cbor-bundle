@@ -27,11 +27,11 @@ return static function (ContainerConfigurator $container): void {
     // The managers start with the whole registry the library implements; the application's own tags and
     // other objects are added to them by the extension (configuration) and the compiler passes (tagged services).
     $container->set(TagManager::class)
-        ->factory(TagManagerFactory::create(...))
+        ->factory([TagManagerFactory::class, 'create'])
     ;
     $container->alias(TagManagerInterface::class, TagManager::class);
     $container->set(OtherObjectManager::class)
-        ->factory(OtherObjectManagerFactory::create(...))
+        ->factory([OtherObjectManagerFactory::class, 'create'])
     ;
     $container->alias(OtherObjectManagerInterface::class, OtherObjectManager::class);
 
