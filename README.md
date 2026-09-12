@@ -235,9 +235,45 @@ The bundle supports encoding and decoding of:
 
 ## Extending the Bundle
 
+The decoder service is built with a tag manager and an "other object" manager that know every tag class
+[spomky-labs/cbor-php](https://github.com/Spomky-Labs/cbor-php) implements from the IANA registry -- date/time,
+big numbers, UUIDs, COSE messages and CBOR Web Tokens, typed arrays, IP addresses and so on -- and every simple
+value and float of major type 7. Both managers are services you can inject through their interface:
+
+```php
+use CBOR\OtherObject\OtherObjectManagerInterface;
+use CBOR\Tag\TagManagerInterface;
+
+class MyService
+{
+    public function __construct(
+        private TagManagerInterface $tagManager,
+        private OtherObjectManagerInterface $otherObjectManager
+    ) {}
+}
+```
+
+Tag classes and other object classes are not services: the decoder instantiates them itself, with the data of each
+item it reads. Registering one is therefore a matter of naming the class, and a class you register for a tag number
+(or a simple value) the library already handles replaces the built-in one.
+
 ### Custom CBOR Tags
 
-You can register custom CBOR tags by implementing `TagInterface` and tagging the service:
+Implement `CBOR\Tag\TagInterface` (usually by extending `CBOR\Tag`, see the
+[library guide](https://github.com/Spomky-Labs/cbor-php/blob/3.4.x/doc/custom-tags.md)) and list the class in the
+configuration:
+
+```yaml
+# config/packages/cbor.yaml
+cbor:
+    tags:
+        - App\Cbor\CustomTag
+```
+
+A class that lives in a directory the service container discovers (`src/` in a standard application) is registered
+automatically: the bundle autoconfigures every `TagInterface` implementation with the `cbor.tag` service tag, and
+only takes the class of such a service definition -- the container never tries to build it. The same tag can be set
+by hand on a class that is not discovered:
 
 ```yaml
 services:
@@ -247,12 +283,14 @@ services:
 
 ### Custom CBOR Objects
 
-You can register custom CBOR objects by implementing `OtherObjectInterface` and tagging the service:
+Major type 7 items -- simple values, floats, the break code -- work the same way with `CBOR\OtherObjectInterface`
+(usually by extending `CBOR\OtherObject`), the `other_objects` configuration key and the `cbor.other_object`
+service tag:
 
 ```yaml
-services:
-    App\Cbor\CustomObject:
-        tags: ['cbor.other_object']
+cbor:
+    other_objects:
+        - App\Cbor\CustomObject
 ```
 
 ## Upgrading
