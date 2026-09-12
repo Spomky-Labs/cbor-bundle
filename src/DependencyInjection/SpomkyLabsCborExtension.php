@@ -27,6 +27,10 @@ final class SpomkyLabsCborExtension extends Extension
 
     public function load(array $configs, ContainerBuilder $container): void
     {
+        /** @var array{max_depth: int} $config */
+        $config = $this->processConfiguration(new Configuration(self::ALIAS), $configs);
+        $container->setParameter(self::ALIAS . '.max_depth', $config['max_depth']);
+
         $container->registerForAutoconfiguration(TagInterface::class)->addTag(TagCompilerPass::TAG);
         $container->registerForAutoconfiguration(OtherObjectInterface::class)->addTag(OtherObjectCompilerPass::TAG);
 
@@ -35,8 +39,8 @@ final class SpomkyLabsCborExtension extends Extension
     }
 
     #[Override]
-    public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
+    public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
     {
-        return null;
+        return new Configuration(self::ALIAS);
     }
 }
