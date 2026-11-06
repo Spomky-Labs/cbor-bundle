@@ -22,48 +22,7 @@ This project follows the [semantic versioning](http://semver.org/) strictly.
 
 # Documentation
 
-## Object Creation
-
-For object creation, please refer to [the documentation of the library](https://github.com/Spomky-Labs/cbor-php#object-creation).
-
-## Object Loading
-
-If you want to load a CBOR encoded data, you just have to use de decoder available from the container.
-
-```php
-<?php
-
-use SpomkyLabs\CborBundle\CBORDecoder;
-
-// CBOR object (shall be a binary string; in hex for the example)
-$data = hex2bin('fb3fd5555555555555');
-
-// Load the data
-$object = $container->get(CBORDecoder::class)->decode($data); // Return a CBOR\OtherObject\DoublePrecisionFloatObject class with normalized value ~0.3333 (=1/3)
-```
-
-## Configuration
-
-Decoding is a recursive operation: deeply nested data — nested arrays, maps or tags cost one byte per level — can
-exhaust the call stack and crash the PHP process. The decoder rejects data nested deeper than `max_depth` with an
-`InvalidArgumentException`.
-
-```yaml
-# config/packages/cbor.yaml
-cbor:
-    max_depth: 1000 # Default value (CBOR\Decoder::DEFAULT_MAX_DEPTH)
-```
-
-When the data comes from an untrusted source, a much lower value is recommended:
-
-```yaml
-cbor:
-    max_depth: 32
-```
-
-## Custom Tags / Other Objects
-
-*To be written*
+The documentation is available at https://cbor.spomky-labs.com/3.3/bundle/
 
 # Support
 
