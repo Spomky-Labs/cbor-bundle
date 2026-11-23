@@ -1,11 +1,11 @@
 # Versioning and Release
 
-This document describes the versioning and release process of the Webauthn Framework.
+This document describes the versioning and release process of the CBOR Bundle.
 This document is a living document, contents will be updated according to each release.
 
 ## Releases
 
-Webauthn Framework releases will be versioned using dotted triples, similar to [Semantic Version](http://semver.org/).
+CBOR Bundle releases will be versioned using dotted triples, similar to [Semantic Version](http://semver.org/).
 For this specific document, we will refer to the respective components of this triple as `<major>.<minor>.<patch>`.
 The version number may have additional information, such as "-rc1,-rc2,-rc3" to mark release candidate builds for earlier access.
 Such releases will be considered as "pre-releases".
@@ -15,4 +15,5 @@ Such releases will be considered as "pre-releases".
 | Version | Supported          |
 |---------| ------------------ |
 | 3.2.x   | :white_check_mark: |
-| < 3.2.x | :x:                |
+| 3.1.x   | :white_check_mark: |
+| < 3.1.x | :x:                |
